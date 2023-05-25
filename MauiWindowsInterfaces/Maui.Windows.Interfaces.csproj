@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows10.0.19041.0</TargetFramework>
+    <Platforms>x64</Platforms>
+    <ProjectGuid>{2746B9A5-3BC0-470A-A813-1C5D510911A1}</ProjectGuid>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CsWinRTComponent>true</CsWinRTComponent>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+  </ItemGroup>
+
+</Project>

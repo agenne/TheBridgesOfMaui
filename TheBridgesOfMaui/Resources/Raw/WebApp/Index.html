@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Meine HTML-Seite</title>
+</head>
+<body>
+  <h1>Willkommen auf meiner Seite</h1>
+
+  <p>Klicke auf den Button, um eine Nachricht anzuzeigen.</p>
+
+  <button onclick="showMessage()">Klick mich!</button>
+
+  <script>
+    function showMessage() {
+      if (window.webViewBridge) {
+        window.webViewBridge.alert("Hallo, Welt!");
+      } else {
+        alert("Browser: Hallo, Welt!");
+      }
+    }
+  </script>
+</body>
+</html>

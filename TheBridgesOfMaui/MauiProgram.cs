@@ -1,6 +1,16 @@
 ﻿using Microsoft.Extensions.Logging;
 using WebViewInterop;
 
+#if ANDROID
+using WebViewInterop.Platforms.Droid;
+#endif
+#if IOS
+using WebViewInterop.Platforms.iOS;
+#endif
+#if WINDOWS
+using WebViewInterop.Platforms.Windows;
+#endif
+
 namespace TheBridgesOfMaui;
 
 public static class MauiProgram
@@ -17,12 +27,13 @@ public static class MauiProgram
 			})
 			.ConfigureMauiHandlers(handlers =>
       {
+        handlers.AddHandler(typeof(BridgetWebView), typeof(BridgetWebViewHandler));
       });
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-//    handlers.AddHandler(typeof(HybridWebView), typeof(HybridWebViewHandler));
+
 
     return builder.Build();
 	}

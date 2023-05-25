@@ -9,12 +9,20 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+    <CsWinRTIncludes Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">WinRTAdapter</CsWinRTIncludes>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">
+    <ProjectReference Include="..\MauiWindowsInterfaces\Maui.Windows.Interfaces.csproj" PrivateAssets="All" InNuget="true"/>
+    <ProjectReference Include="..\WinRTAdapter\WinRTAdapter.vcxproj" PrivateAssets="All" InNuget="true"/>
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="2.0.1" />
+  </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebViewInterop
 {
-  public interface IHybridWebView
+  public interface IBridgetWebView : IView
   {
   }
 }
