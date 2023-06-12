@@ -1,16 +1,37 @@
-﻿using Android.Content;
-using Android.Webkit;
+﻿using Android.Webkit;
 using Java.Interop;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebViewInterop.Platforms.Droid
+namespace WebViewInterop
 {
   public partial class Bridge : Java.Lang.Object
   {
+    private class StringCallback : Java.Lang.Object, IValueCallback
+    {
+      private TaskCompletionSource<string> source;
+
+      public Task<string> Task { get { return source.Task; } }
+
+      public StringCallback()
+      {
+        source = new TaskCompletionSource<string>();
+      }
+
+      public void OnReceiveValue(Java.Lang.Object value)
+      {
+        try
+        {
+          var jstr = value.ToString(); ;
+          source.SetResult(jstr.Trim('"'));
+        }
+        catch (Exception ex)
+        {
+          source.SetException(ex);
+        }
+      }
+    }
+
+    private Android.Webkit.WebView _webView;
+
     private Android.App.Activity Context
     {
       get { return Microsoft.Maui.ApplicationModel.Platform.CurrentActivity; }
@@ -18,25 +39,44 @@ namespace WebViewInterop.Platforms.Droid
 
     public void Connect(Android.Webkit.WebView webView)
     {
+      _webView = webView;
+
       Context.RunOnUiThread(() =>
       {
         webView.AddJavascriptInterface(this, "webViewBridge");
       });
     }
 
-    public void Disconnect()
+    public void Disconnect(Android.Webkit.WebView webView)
     {
-
+      _webView = null;
     }
 
     [JavascriptInterface]
     [Export("alert")]
     public void Alert(Java.Lang.String message)
     {
+      InternalAlert(message.ToString());
+    }
+
+    [JavascriptInterface]
+    [Export("captureSignature")]
+    public void CaptureSignature(Java.Lang.String options)
+    {
+      InternalCaptureSignature(options.ToString());
+    }
+
+    private async Task<string> EvaluateJavascriptAsync(string script)
+    {
+      var javascriptResult = new StringCallback();
+
       Context.RunOnUiThread(() =>
       {
-        Application.Current.MainPage.DisplayAlert("Information", message.ToString(), "OK");
+        _webView.EvaluateJavascript(script, javascriptResult);
       });
+
+      var result = await javascriptResult.Task;
+      return result;
     }
   }
 }

@@ -1,23 +1,43 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>Meine HTML-Seite</title>
+  <title>Signature capture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
-  <h1>Willkommen auf meiner Seite</h1>
+  <h1>Signature capture</h1>
 
-  <p>Klicke auf den Button, um eine Nachricht anzuzeigen.</p>
+  <p>Click the button to view a message.</p>
 
-  <button onclick="showMessage()">Klick mich!</button>
+  <button onclick="showMessage()">Show message</button>
+
+  <p>Click the button to capture a signature.</p>
+
+  <button onclick="captureSignature()">Capture signature</button>
+
+  <div id="signature">
+  </div>
 
   <script>
+
     function showMessage() {
-      if (window.webViewBridge) {
-        window.webViewBridge.alert("Hallo, Welt!");
-      } else {
-        alert("Browser: Hallo, Welt!");
-      }
+      window.webViewBridge?.alert("Hello world!");
     }
+
+    function captureSignature() {
+      window.webViewBridge?.captureSignature(JSON.stringify({ penWidth: 2, penColor: "#0000FF" }));
+    }
+
+    window.webViewBridgeTarget = {
+      provideSignature: function (result) {
+        if (result.success) {
+          document.getElementById("signature").innerHTML = result.signature;
+        } else {
+          document.getElementById("signature").innerHTML = "Signature capture aborted";
+        }
+      }
+    };
+
   </script>
 </body>
 </html>

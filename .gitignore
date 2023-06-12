@@ -407,10 +407,6 @@ FodyWeavers.xsd
 !workspace.code-workspace
 
 DataAccessSystem/Microsoft.Data.Sqlite/Microsoft.Data.Sqlite/Resources/Resource.Designer.cs
-SoviaHtml5Client/WebSite/SoviaClientStyle.css
-SoviaHtml5Client/WebSite/SoviaClientStyle.min.css
-SoviaHtml5Client/WebSite/Scripts/SoviaClient.min.js
-SoviaHtml5Client/WebSite/Scripts/SoviaClient.js
 
 /Build/JsMinifier/package-lock.json
 /Build/JsMinifier/package-lock.json

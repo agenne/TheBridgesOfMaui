@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using WebViewInterop;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.ApplicationModel.Communication;
 
 #if ANDROID
 using WebViewInterop.Platforms.Droid;
@@ -20,7 +23,8 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+      .UseMauiCommunityToolkit()
+      .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -33,7 +37,6 @@ public static class MauiProgram
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
-
 
     return builder.Build();
 	}

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Maui.Handlers;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebViewInterop.Platforms.Windows
 {
@@ -46,7 +41,7 @@ namespace WebViewInterop.Platforms.Windows
     protected override void DisconnectHandler(WebView2 platformView)
     {
       base.DisconnectHandler(platformView);
-      _bridge.Disconnect();
+      _bridge.Disconnect(platformView);
     }
   }
 }

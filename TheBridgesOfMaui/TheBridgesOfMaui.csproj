@@ -53,10 +53,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Pages\SignaturePage.xaml.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Remove="Pages\SignaturePage.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Remove="Resources\Raw\Index.html" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="5.2.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
@@ -67,5 +77,17 @@
   <ItemGroup>
 	  <ProjectReference Include="..\WebViewInterop\WebViewInterop.csproj" />
 	</ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Pages\SignatureCapturePage.xaml.cs">
+      <DependentUpon>SignatureCapturePage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Update="Pages\SignatureCapturePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
 
 </Project>

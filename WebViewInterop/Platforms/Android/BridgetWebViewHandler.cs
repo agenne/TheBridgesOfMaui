@@ -1,13 +1,6 @@
-﻿using Android.Content;
-using Android.OS;
-using Android.Views;
+﻿using Android.Views;
 using Android.Webkit;
 using Microsoft.Maui.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Android.Views.ViewGroup;
 
 namespace WebViewInterop.Platforms.Droid
@@ -89,7 +82,7 @@ namespace WebViewInterop.Platforms.Droid
     protected override void DisconnectHandler(Android.Webkit.WebView platformView)
     {
       base.DisconnectHandler(platformView);
-      _bridge.Disconnect();
+      _bridge.Disconnect(platformView);
     }
   }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+             x:Class="TheBridgesOfMaui.SignatureCapturePage"
+             Title="SignaturePad">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="50"/>
+    </Grid.RowDefinitions>
+    <Label Grid.Row="0" x:Name="Header" FontSize="32" HorizontalOptions="Center" Text="Please capture your signature"/>
+    <view:DrawingView BackgroundColor="Transparent" Grid.Row="1" x:Name="SignaturePad" IsMultiLineModeEnabled="True"></view:DrawingView>
+    <Grid Grid.Row="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button Margin="5" Grid.Column="0" Clicked="SaveButton_Clicked" Text="Submit"/>
+      <Button Margin="5" Grid.Column="1" Clicked="CancelButton_Clicked" Text="Cancel"/>
+      <Button Margin="5" Grid.Column="2" Clicked="ClearButton_Clicked" Text="Clear"/>
+    </Grid>
+  </Grid>
+</ContentPage>

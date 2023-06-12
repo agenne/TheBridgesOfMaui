@@ -1,19 +1,17 @@
 ﻿using Maui.Windows.Interfaces;
 using Microsoft.UI.Xaml.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WebViewInterop.Platforms.Windows
+namespace WebViewInterop
 {
   public partial class Bridge : IWebViewBridge
   {
     private string _currentStartupId;
 
+    private WebView2 _webView;
+
     public async Task Connect(WebView2 webView)
     {
+      _webView = webView;
       await webView.EnsureCoreWebView2Async();
 
       webView.CoreWebView2.Settings.AreDevToolsEnabled = true;
@@ -29,14 +27,27 @@ namespace WebViewInterop.Platforms.Windows
 
     }
 
-    public void Disconnect()
+    public void Disconnect(WebView2 webView)
     {
-
+      _webView = null;
+      webView.CoreWebView2.RemoveScriptToExecuteOnDocumentCreated(_currentStartupId);
+      webView.CoreWebView2.RemoveHostObjectFromScript("bridge");
     }
 
     public void Alert(string message)
     {
-      Application.Current.MainPage.DisplayAlert("Information", message.ToString(), "OK");
+      InternalAlert(message);
+    }
+
+    public void CaptureSignature(string options)
+    {
+      InternalCaptureSignature(options);
+    }
+
+    private async Task<string> EvaluateJavascriptAsync(string script)
+    {
+      var result = await _webView.CoreWebView2.ExecuteScriptAsync(script);
+      return result;
     }
   }
 }
