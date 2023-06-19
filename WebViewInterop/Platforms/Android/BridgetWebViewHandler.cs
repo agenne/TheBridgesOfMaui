@@ -3,15 +3,15 @@ using Android.Webkit;
 using Microsoft.Maui.Handlers;
 using static Android.Views.ViewGroup;
 
-namespace WebViewInterop.Platforms.Droid
+namespace WebViewInterop.Handlers
 {
   public class BridgetWebViewHandler : ViewHandler<IBridgetWebView, Android.Webkit.WebView>
   {
-    public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> HybridWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+    public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
 
     private Bridge _bridge;
 
-    public BridgetWebViewHandler() : base(HybridWebViewMapper)
+    public BridgetWebViewHandler() : base(BridgetWebViewMapper)
     {
     }
 

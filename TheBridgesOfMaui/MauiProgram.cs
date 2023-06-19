@@ -1,18 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using WebViewInterop;
 using CommunityToolkit.Maui;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Maui.ApplicationModel.Communication;
-
-#if ANDROID
-using WebViewInterop.Platforms.Droid;
-#endif
-#if IOS
-using WebViewInterop.Platforms.iOS;
-#endif
-#if WINDOWS
-using WebViewInterop.Platforms.Windows;
-#endif
+using WebViewInterop.Handlers;
 
 namespace TheBridgesOfMaui;
 

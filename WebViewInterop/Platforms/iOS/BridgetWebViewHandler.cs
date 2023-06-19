@@ -3,15 +3,15 @@ using Foundation;
 using Microsoft.Maui.Handlers;
 using WebKit;
 
-namespace WebViewInterop.Platforms.iOS
+namespace WebViewInterop.Handlers
 {
   public class BridgetWebViewHandler : ViewHandler<IBridgetWebView, WKWebView>
   {
-    public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> HybridWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+    public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
 
     private Bridge _bridge;
 
-    public BridgetWebViewHandler() : base(HybridWebViewMapper)
+    public BridgetWebViewHandler() : base(BridgetWebViewMapper)
     {
     }
 
