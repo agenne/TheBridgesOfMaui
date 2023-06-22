@@ -1,7 +1,6 @@
-﻿namespace WebViewInterop
-{
-  public class BridgetWebView : View, IBridgetWebView
-  {
+﻿namespace WebViewInterop;
 
-  }
+public class BridgetWebView : View, IBridgetWebView
+{
+
 }

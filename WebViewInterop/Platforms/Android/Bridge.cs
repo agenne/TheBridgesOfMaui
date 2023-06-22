@@ -1,82 +1,84 @@
 ﻿using Android.Webkit;
 using Java.Interop;
 
-namespace WebViewInterop
+namespace WebViewInterop;
+
+public partial class Bridge : Java.Lang.Object
 {
-  public partial class Bridge : Java.Lang.Object
+  private class StringCallback : Java.Lang.Object, IValueCallback
   {
-    private class StringCallback : Java.Lang.Object, IValueCallback
+    private TaskCompletionSource<string> source;
+
+    public Task<string> Task { get { return source.Task; } }
+
+    public StringCallback()
     {
-      private TaskCompletionSource<string> source;
+      source = new TaskCompletionSource<string>();
+    }
 
-      public Task<string> Task { get { return source.Task; } }
-
-      public StringCallback()
+    public void OnReceiveValue(Java.Lang.Object value)
+    {
+      try
       {
-        source = new TaskCompletionSource<string>();
+        var jstr = value.ToString(); ;
+        source.SetResult(jstr.Trim('"'));
       }
-
-      public void OnReceiveValue(Java.Lang.Object value)
+      catch (Exception ex)
       {
-        try
-        {
-          var jstr = value.ToString(); ;
-          source.SetResult(jstr.Trim('"'));
-        }
-        catch (Exception ex)
-        {
-          source.SetException(ex);
-        }
+        source.SetException(ex);
       }
     }
+  }
 
-    private Android.Webkit.WebView _webView;
+  private Android.Webkit.WebView _webView;
 
-    private Android.App.Activity Context
+  private Android.App.Activity Context
+  {
+    get { return Microsoft.Maui.ApplicationModel.Platform.CurrentActivity; }
+  }
+
+  public void Connect(Android.Webkit.WebView webView)
+  {
+    _webView = webView;
+    Context.RunOnUiThread(() =>
     {
-      get { return Microsoft.Maui.ApplicationModel.Platform.CurrentActivity; }
-    }
+      webView.AddJavascriptInterface(this, BRIDGE_NAME);
+    });
+  }
 
-    public void Connect(Android.Webkit.WebView webView)
+  public void Disconnect(Android.Webkit.WebView webView)
+  {
+    Context.RunOnUiThread(() =>
     {
-      _webView = webView;
+      webView.RemoveJavascriptInterface(BRIDGE_NAME);
+    });
+    _webView = null;
+  }
 
-      Context.RunOnUiThread(() =>
-      {
-        webView.AddJavascriptInterface(this, "webViewBridge");
-      });
-    }
+  [JavascriptInterface]
+  [Export("alert")]
+  public void Alert(Java.Lang.String message)
+  {
+    AlertImplementation(message.ToString());
+  }
 
-    public void Disconnect(Android.Webkit.WebView webView)
+  [JavascriptInterface]
+  [Export("captureSignature")]
+  public void CaptureSignature(Java.Lang.String options)
+  {
+    CaptureSignatureImplementation(options.ToString());
+  }
+
+  private async Task<string> EvaluateJavascriptAsync(string script)
+  {
+    var javascriptResult = new StringCallback();
+
+    Context.RunOnUiThread(() =>
     {
-      _webView = null;
-    }
+      _webView.EvaluateJavascript(script, javascriptResult);
+    });
 
-    [JavascriptInterface]
-    [Export("alert")]
-    public void Alert(Java.Lang.String message)
-    {
-      InternalAlert(message.ToString());
-    }
-
-    [JavascriptInterface]
-    [Export("captureSignature")]
-    public void CaptureSignature(Java.Lang.String options)
-    {
-      InternalCaptureSignature(options.ToString());
-    }
-
-    private async Task<string> EvaluateJavascriptAsync(string script)
-    {
-      var javascriptResult = new StringCallback();
-
-      Context.RunOnUiThread(() =>
-      {
-        _webView.EvaluateJavascript(script, javascriptResult);
-      });
-
-      var result = await javascriptResult.Task;
-      return result;
-    }
+    var result = await javascriptResult.Task;
+    return result;
   }
 }

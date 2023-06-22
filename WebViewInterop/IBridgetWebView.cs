@@ -1,6 +1,5 @@
-﻿namespace WebViewInterop
+﻿namespace WebViewInterop;
+
+public interface IBridgetWebView : IView
 {
-  public interface IBridgetWebView : IView
-  {
-  }
 }
