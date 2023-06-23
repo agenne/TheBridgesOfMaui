@@ -5,9 +5,9 @@ using static Android.Views.ViewGroup;
 
 namespace WebViewInterop.Handlers;
 
-public class BridgetWebViewHandler : ViewHandler<IBridgetWebView, Android.Webkit.WebView>
+public class BridgetWebViewHandler : ViewHandler<IBridgedWebView, Android.Webkit.WebView>
 {
-  public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+  public static PropertyMapper<IBridgedWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgedWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
 
   private Bridge _bridge;
 

@@ -5,9 +5,9 @@ using WebKit;
 
 namespace WebViewInterop.Handlers;
 
-public class BridgetWebViewHandler : ViewHandler<IBridgetWebView, WKWebView>
+public class BridgetWebViewHandler : ViewHandler<IBridgedWebView, WKWebView>
 {
-  public static PropertyMapper<IBridgetWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgetWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+  public static PropertyMapper<IBridgedWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgedWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
 
   private Bridge _bridge;
 

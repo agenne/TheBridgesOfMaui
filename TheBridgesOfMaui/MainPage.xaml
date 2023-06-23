@@ -5,7 +5,7 @@
              x:Class="TheBridgesOfMaui.MainPage">
 
   <Grid>
-    <controls:BridgetWebView x:Name="WebView"/>
+    <controls:BridgedWebView x:Name="WebView"/>
   </Grid>
 
 </ContentPage>
