@@ -20,7 +20,7 @@ public static class MauiProgram
 			})
 			.ConfigureMauiHandlers(handlers =>
       {
-        handlers.AddHandler(typeof(BridgedWebView), typeof(BridgetWebViewHandler));
+        handlers.AddHandler(typeof(BridgedWebView), typeof(BridgedWebViewHandler));
       });
 
 #if DEBUG

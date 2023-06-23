@@ -5,13 +5,13 @@ using static Android.Views.ViewGroup;
 
 namespace WebViewInterop.Handlers;
 
-public class BridgetWebViewHandler : ViewHandler<IBridgedWebView, Android.Webkit.WebView>
+public class BridgedWebViewHandler : ViewHandler<IBridgedWebView, Android.Webkit.WebView>
 {
-  public static PropertyMapper<IBridgedWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgedWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+  public static PropertyMapper<IBridgedWebView, BridgedWebViewHandler> BridgedWebViewMapper = new PropertyMapper<IBridgedWebView, BridgedWebViewHandler>(ViewHandler.ViewMapper);
 
   private Bridge _bridge;
 
-  public BridgetWebViewHandler() : base(BridgetWebViewMapper)
+  public BridgedWebViewHandler() : base(BridgedWebViewMapper)
   {
   }
 

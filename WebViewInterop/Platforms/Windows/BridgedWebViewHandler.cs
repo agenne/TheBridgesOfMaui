@@ -4,13 +4,13 @@ using Microsoft.Web.WebView2.Core;
 
 namespace WebViewInterop.Handlers;
 
-public class BridgetWebViewHandler : ViewHandler<IBridgedWebView, WebView2>
+public class BridgedWebViewHandler : ViewHandler<IBridgedWebView, WebView2>
 {
-  public static PropertyMapper<IBridgedWebView, BridgetWebViewHandler> BridgetWebViewMapper = new PropertyMapper<IBridgedWebView, BridgetWebViewHandler>(ViewHandler.ViewMapper);
+  public static PropertyMapper<IBridgedWebView, BridgedWebViewHandler> BridgedWebViewMapper = new PropertyMapper<IBridgedWebView, BridgedWebViewHandler>(ViewHandler.ViewMapper);
 
   private Bridge _bridge;
 
-  public BridgetWebViewHandler() : base(BridgetWebViewMapper)
+  public BridgedWebViewHandler() : base(BridgedWebViewMapper)
   {
   }
 
